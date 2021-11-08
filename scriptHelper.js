@@ -17,23 +17,49 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 
 function validateInput(testInput) {
-   
+
+
+    if(isNaN(testInput) === false ){
+        return "Is a Number"
+    }
+    else if(isNaN(testInput) === true){
+        return "Not a Number"
+    }
+    else if(testInput === "")
+    {
+        return "Empty"
+    }
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   
+    let form = document.getElementById("testForm");
+    form.addEventListener("submit", function(event){
+        let pilotName = document.querySelector("input[name = pilotName]");
+        let copilotName = document.querySelector("input[name = copilotName]");
+        let fuelLevel = document.querySelector("input[name = fuelLevel]");
+        let cargoMass = document.querySelector("input[name = cargoMass]")
+
+        if(pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass === ""){
+            alert("All fields are required!");
+            event.preventDefault();
+        }
+
+    });
+    
 }
 
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+        return response.json();
         });
 
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
+    const missionDestination = Math.round(Math.random()*5)
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
