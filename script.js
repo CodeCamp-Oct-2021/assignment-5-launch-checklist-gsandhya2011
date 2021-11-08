@@ -1,29 +1,28 @@
 // Write your JavaScript code here!
 
+//const { addDestinationInfo } = require("./scriptHelper");
+
 //const { myFetch } = require("./scriptHelper");
 
 //const { validateInput } = require("./scriptHelper");
 
 window.addEventListener("load", function () {
 
-    this.fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-        response.json().then(function(json) {
-           const div = document.getElementById("missionTarget");
-           const missionDestination = Math.round(Math.random()*5);
-           div.innerHTML = `
-           <h2>Mission Destination</h2>
-           <ol>
-              <li>Name: ${json[missionDestination].name}</li>
-              <li>Diameter: ${json[missionDestination].diameter}</li>
-              <li>Star: ${json[missionDestination].star}</li>
-              <li>Distance from Earth: ${json[missionDestination].distance}</li>
-              <li>Number of Moons: ${json[missionDestination].moons}</li>
-           </ol>
-           <img src="${json[missionDestination].image}">
-           `;
-        });
-    });
+    let listedPlanets;
+    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
+    let listedPlanetsResponse = myFetch();
+    listedPlanetsResponse.then(function (result) {
+       listedPlanets = result;
+        console.log(listedPlanets);
+    }).then(function () {
+        let index = Math.floor(Math.random()*listedPlanets.length);
+        console.log(listedPlanets[index].name);
+   // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
+    addDestinationInfo(listedPlanets[index].name, listedPlanets[index].diameter, listedPlanets[index].star, listedPlanets[index].distance, listedPlanets[index].moons, listedPlanets[index].image);
+    })
 
+
+    
     //when submit button is hit, execute the code below
     let form = document.querySelector("form");
     form.addEventListener("submit", function (event) {
@@ -95,16 +94,7 @@ window.addEventListener("load", function () {
    });
 
 
-    // let listedPlanets;
-    // // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-    // let listedPlanetsResponse = myFetch();
-    // listedPlanetsResponse.then(function (result) {
-    //     listedPlanets = result;
-    //     console.log(listedPlanets);
-    // }).then(function () {
-    //     console.log(listedPlanets);
-    //     // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-    // })
+    
 
    
 });
